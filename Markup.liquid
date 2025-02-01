@@ -7,14 +7,14 @@
             <span class="title">London Transport Status</span>
             <div class="content">
               {% for line in data %}
-                <p>
-                  <strong>{{ line.name }}:</strong>
+                <div class="line-status">
+                  <span class="line-name">{{ line.name }}:</span>
                   {% if line.lineStatuses[0].statusSeverityDescription != "Good Service" %}
-                    <span class="disrupted">! {{ line.lineStatuses[0].statusSeverityDescription | upcase }} !</span>
+                    <span class="status disrupted">{{ line.lineStatuses[0].statusSeverityDescription }}</span>
                   {% else %}
-                    {{ line.lineStatuses[0].statusSeverityDescription }}
+                    <span class="status">{{ line.lineStatuses[0].statusSeverityDescription }}</span>
                   {% endif %}
-                </p>
+                </div>
               {% endfor %}
             </div>
           </div>
@@ -25,11 +25,26 @@
 </div>
 
 <style>
-  .disrupted {
+  .line-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .line-name {
     font-weight: bold;
-    text-transform: uppercase;
-    border: 1px solid black;
+    flex-shrink: 0;
+    margin-right: 8px;
+  }
+  .status {
+    text-align: right;
+  }
+  .disrupted {
+    background-color: black;
+    color: white;
+    font-weight: bold;
     padding: 2px 4px;
+    border: 1px solid white;
   }
 </style>
 
