@@ -6,16 +6,20 @@
           <div class="markdown">
             <span class="title">London Transport Status</span>
             <div class="content">
-              {% for line in data %}
-                <div class="line-status">
-                  <span class="line-name">{{ line.name }}:</span>
-                  {% if line.lineStatuses[0].statusSeverityDescription != "Good Service" %}
-                    <span class="status disrupted">{{ line.lineStatuses[0].statusSeverityDescription }}</span>
-                  {% else %}
-                    <span class="status">{{ line.lineStatuses[0].statusSeverityDescription }}</span>
-                  {% endif %}
-                </div>
-              {% endfor %}
+              {% if data and data != empty %}
+                {% for line in data %}
+                  <div class="line-status">
+                    <span class="line-name">{{ line.name }}</span>
+                    {% if line.lineStatuses[0].statusSeverityDescription != "Good Service" %}
+                      <span class="status disrupted">{{ line.lineStatuses[0].statusSeverityDescription }}</span>
+                    {% else %}
+                      <span class="status">{{ line.lineStatuses[0].statusSeverityDescription }}</span>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="error-message">No data available.</div>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -26,38 +30,53 @@
 
 <style>
   .screen {
-    font-size: 14px;
-    line-height: 1.2;
+    font-size: 10px;
+    line-height: 1.1;
+    padding: 4px 1px;
   }
   .title {
-    font-size: 18px;
-    margin-bottom: 8px;
+    font-size: 14px;
+    margin-bottom: 4px;
     display: block;
+    border-bottom: 1px solid black;
   }
   .content {
-    max-height: 420px;
+    max-height: 450px;
     overflow-y: auto;
   }
   .line-status {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
   .line-name {
+    flex: 0 1 auto;
     font-weight: bold;
-    flex-shrink: 0;
-    margin-right: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 4px;
+    max-width: 45%;
   }
   .status {
+    flex: 0 1 auto;
     text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 55%;
   }
   .disrupted {
     background-color: black;
     color: white;
     font-weight: bold;
-    padding: 1px 2px;
-    border: 1px solid white;
+    padding: 0 2px;
+    display: inline-block;
+  }
+  .error-message {
+    font-style: italic;
+    margin-top: 2px;
   }
 </style>
 
