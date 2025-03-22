@@ -1,0 +1,119 @@
+<div class="screen">
+  <div class="view view--full">
+    <div class="layout">
+      <div class="columns">
+        <div class="column logo">
+          <img class="image-dither" src="https://upload.wikimedia.org/wikipedia/commons/4/41/Underground.svg" width="30">
+        </div>
+        <div class="column status">
+          <div class="markdown">
+            <span class="title">TfL Status</span>
+            <div class="content">
+              {% if data and data != empty %}
+              {% for line in data %}
+              <div class="line-status">
+                <span class="line-name">{{ line.name }}</span>
+                {% if line.lineStatuses[0].statusSeverityDescription != "Good Service" %}
+                <span class="status disrupted">{{ line.lineStatuses[0].statusSeverityDescription | truncate: 15 }}</span>
+                {% else %}
+                <span class="status">Good Service</span>
+                {% endif %}
+              </div>
+              {% endfor %}
+              {% else %}
+              <div class="error-message">No data available.</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .screen {
+    font-size: 5px;
+    line-height: 1.0;
+    padding: 2px;
+  }
+  .layout {
+    display: flex;
+  }
+  .columns {
+    display: flex;
+    width: 100%;
+  }
+  .column.logo {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .column.status {
+    flex: 1;
+  }
+  .title {
+    font-size: 10px;
+    margin-bottom: 2px;
+    display: block;
+    border-bottom: 1px solid black;
+  }
+  .content {
+    max-height: 450px;
+    overflow-y: auto;
+  }
+  .line-status {
+    display: flex;
+    justify-content: right;
+    align-items: baseline;
+    margin-bottom: 1px;
+  }
+  .line-name {
+    flex: 0 1 auto;
+    text-align: left;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 100px;
+    max-width: 90%;
+  }
+  .status {
+    flex: 0 1 auto;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .disrupted {
+    flex: 0 1 auto;
+    background-color: black;
+    color: white;
+    text-align: right;
+    font-weight: bold;
+    padding: 0 2px;
+    display: inline-block;
+    max-width: 100%;
+  }
+  .error-message {
+    font-style: italic;
+    margin-top: 2px;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

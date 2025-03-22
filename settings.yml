@@ -1,0 +1,10 @@
+---
+strategy: polling
+no_screen_padding: 'yes'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+polling_url: https://api.tfl.gov.uk/Line/Mode/tube,overground,elizabeth-line,dlr/Status
+polling_headers: 'Accept: application/json'
+name: TfL Status
+refresh_interval: 60
